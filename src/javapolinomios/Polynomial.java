@@ -11,7 +11,7 @@ public class Polynomial {
 
     public Polynomial(int[] coeficientes) {
         for (int coeficiente : coeficientes) {
-            insert(coeficiente);
+            insertar_nodo(coeficiente);
         }
     }
 
@@ -27,24 +27,24 @@ public class Polynomial {
 
     public void add(Polynomial poli) {
         int puntero1 = 0;
-        int puntero2 = poli.size() - 1;
+        int puntero2 = poli.dimension() - 1;
         int tam = dimension;
         Nodo raiznodo = raiz;
-        if (tam >= poli.size()) {
+        if (tam >= poli.dimension()) {
             for (int i = 0; i < tam; i++) {
                 if (poli.getExponente(puntero1) == raiznodo.exponente) {
                     raiznodo.coeficiente += poli.getCoeficiente(puntero1);
                     puntero1++;
                 }
                 raiznodo = raiznodo.siguiente;
-                if (poli.size() - puntero1 == 0) {
+                if (poli.dimension() - puntero1 == 0) {
                     break;
                 }
             }
         } else {
-            for (int i = 0; i < poli.size(); i++) {
+            for (int i = 0; i < poli.dimension(); i++) {
                 if (poli.getExponente(puntero1) != raiznodo.exponente) {
-                    insert(poli.getCoeficiente(puntero2 - tam));
+                    insertar_nodo(poli.getCoeficiente(puntero2 - tam));
                     puntero2--;
                     puntero2++;
                     continue;
@@ -61,7 +61,7 @@ public class Polynomial {
         }
     }
 
-    public final void insert(int x) {
+    public final void insertar_nodo(int x) {
         Nodo nodo = new Nodo(x);
         nodo.siguiente = raiz;
         raiz = nodo;
@@ -69,14 +69,14 @@ public class Polynomial {
         nodo.exponente = dimension - 1;
     }
 
-    public void checkPos(int posicion) {
+    public void validacion_posicion(int posicion) {
         if (posicion < 0 || posicion >= dimension) {
             throw new NoSuchElementException();
         }
     }
 
     public int getCoeficiente(int pos) {
-        checkPos(pos);
+        validacion_posicion(pos);
         Nodo raiznodo = raiz;
         for (int i = 0; i < pos; i++) {
             raiznodo = raiznodo.siguiente;
@@ -85,7 +85,7 @@ public class Polynomial {
     }
 
     public void setCoeficiente(int x, int pos) {
-        checkPos(pos);
+        validacion_posicion(pos);
         Nodo raiznodo = raiz;
         for (int i = 0; i < pos; i++) {
             raiznodo = raiznodo.siguiente;
@@ -93,7 +93,7 @@ public class Polynomial {
     }
 
     public int getExponente(int pos) {
-        checkPos(pos);
+        validacion_posicion(pos);
         Nodo raiznodo = raiz;
         for (int i = 0; i < pos; i++) {
             raiznodo = raiznodo.siguiente;
@@ -101,7 +101,7 @@ public class Polynomial {
         return raiznodo.exponente;
     }
 
-    public int size() {
+    public int dimension() {
         return dimension;
     }
     
