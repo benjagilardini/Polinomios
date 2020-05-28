@@ -14,7 +14,7 @@ public class Nodo {
     int exponente;
     int coeficiente;
     Nodo siguiente;
-    
+
     public Nodo(int coeficiente) {
         this.coeficiente = coeficiente;
     }
